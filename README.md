@@ -1,5 +1,5 @@
 # smartshop-catalog
 
-Create a .env file and insert information below:
+Create an .env file and insert information below:
 
 PORT=8080
