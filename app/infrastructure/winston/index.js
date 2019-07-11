@@ -1,4 +1,5 @@
 const winston = require('winston');
+const { kafka } = require('../config');
 require('winston-kafka-connect');
 
 const kafkaTransport = new winston.transports.WinstonKafkaTransport({
@@ -6,10 +7,10 @@ const kafkaTransport = new winston.transports.WinstonKafkaTransport({
   format: winston.format.json(),
   meta: {},
   kafkaClient: {
-    kafkaHost: `${process.env.KAFKA_HOST}:${process.env.KAFKA_PORT}`,
+    kafkaHost: kafka.hosts,
     clientId: 'catalog-kafka-logger',
   },
-  topic: 'smartshop-catalog-logs',
+  topic: kafka.topics.logAnalytics,
   name: 'SmartShopCatalogLogger',
   timestamp() { return Date.now(); },
   formatter: JSON.stringify,

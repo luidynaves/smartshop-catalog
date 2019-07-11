@@ -4,11 +4,9 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const startPolyglot = require('./utils/startPolyglot');
-const winston = require('./config/winston');
+const winston = require('./infrastructure/winston');
 
 const app = express();
-
-const port = process.env.PORT;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -25,6 +23,4 @@ app.use(helmet());
 
 require('./routes')(app);
 
-app.listen(port, () => {
-
-});
+module.exports = app;
