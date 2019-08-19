@@ -5,7 +5,7 @@ module.exports = {
     port: process.env.PORT,
   },
   kafka: {
-    hosts: transformToArray(process.env.KAFKA_HOSTS),
+    hosts: process.env.KAFKA_HOSTS,
     topics: {
       logAnalytics: 'catalog-log-analytics',
       logs: 'catalog-log',

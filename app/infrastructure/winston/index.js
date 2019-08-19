@@ -20,4 +20,10 @@ const logger = winston.createLogger({
   transports: [kafkaTransport],
 });
 
+logger.stream = {
+  write: function (message, encoding) {
+     logger.info(message);
+  }
+};
+
 module.exports = logger;
