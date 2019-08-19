@@ -1,5 +1,5 @@
-module.exports = (app) => {
-  app.get('api/v1/catalog', () => {
+const search = require('../search');
 
-  });
+module.exports = (app) => {
+  app.use(search);
 };
