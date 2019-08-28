@@ -1,3 +1,4 @@
-module.exports = (req, res, next) => {
-    return res.status(200).json({ status: 200, data: [], message: "Succesfully Users Retrieved" });
-};
+const service = require('./search.service');
+
+module.exports = async (req, res) => res.status(200)
+  .json(await service.search(req.query.text, req.locale.language, req.query.page, req.query.limit));

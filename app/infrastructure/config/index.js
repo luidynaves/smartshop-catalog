@@ -1,4 +1,3 @@
-const transformToArray = value => value.split(',');
 
 module.exports = {
   server: {
@@ -10,5 +9,8 @@ module.exports = {
       logAnalytics: 'catalog-log-analytics',
       logs: 'catalog-log',
     },
+  },
+  elastic: {
+    node: process.env.ELASTIC_NODE,
   },
 };

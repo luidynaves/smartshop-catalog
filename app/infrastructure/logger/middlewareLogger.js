@@ -21,9 +21,9 @@ const logger = winston.createLogger({
 });
 
 logger.stream = {
-  write: function (message, encoding) {
-     logger.info(message);
-  }
+  write(message) {
+    logger.info(message);
+  },
 };
 
 module.exports = logger;
