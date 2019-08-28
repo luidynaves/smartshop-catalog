@@ -1,4 +1,7 @@
-const { Client } = require('@elastic/elasticsearch');
-const { elastic } = require('../config');
+const client = require('./client');
+const QueryBuilder = require('./queryBuilder');
 
-module.exports = new Client(elastic);
+module.exports = {
+  client,
+  QueryBuilder,
+};

@@ -1,43 +1,18 @@
 const searchRepository = require('./search.repository');
-
-const mountIndexSearch = (language) => {
-  const smartshopIndexPrefix = 'smartshop';
-
-  return {
-    index: `${smartshopIndexPrefix}-${language}`,
-  };
-};
-
-const mountSearch = textSearch => ({
-  query: {
-    match: { name: textSearch },
-  },
-});
-
-const mountPaging = (page, limit) => {
-  let pageValue = 0;
-  if (page) pageValue = page;
-
-  let limitValue = 10;
-  if (limit) limitValue = limit;
-
-  return {
-    from: pageValue,
-    size: limitValue,
-  };
-};
+const { QueryBuilder } = require('../infrastructure/elastic');
 
 const search = async (textSearch, language, page, limit) => {
   if (!textSearch) {
     return [];
   }
 
-  const index = mountIndexSearch(language);
-  const paging = mountPaging(page, limit);
-  const searchObj = mountSearch(textSearch);
+  const query = new QueryBuilder('smartshop')
+    .setIndex(language)
+    .setPaging(page, limit)
+    .setSearch(textSearch)
+    .build();
 
-  return searchRepository.search({ ...paging, ...index, body: searchObj });
+  return searchRepository.search(query);
 };
-
 
 module.exports = { search };

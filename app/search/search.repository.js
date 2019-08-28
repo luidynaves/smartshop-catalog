@@ -1,7 +1,7 @@
-const elasticConnection = require('../infrastructure/elastic');
+const { client } = require('../infrastructure/elastic');
 
 const search = async (textSearch) => {
-  const body = await elasticConnection.search(textSearch);
+  const body = await client.search(textSearch);
 
   return body;
 };
