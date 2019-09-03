@@ -9,6 +9,17 @@ test('When setPaging is none should return from equal zero, size equal ten and p
   expect(queryBuilder.getPage()).toBe(1);
 });
 
+test('When limit is none should return size equal ten and page equal one', () => {
+  const queryBuilder = new QueryBuilder('myIndex');
+  const query = queryBuilder
+    .setPaging(1)
+    .build();
+
+  expect(query.from).toBe(0);
+  expect(query.size).toBe(10);
+  expect(queryBuilder.getPage()).toBe(1);
+});
+
 test('When setPaging page is zero and limit is five should return from equal zero and size equal five', () => {
   const query = new QueryBuilder('myIndex')
     .setPaging(0, 5)
@@ -62,4 +73,26 @@ test('When setIndex to en should return myIndex-en', () => {
   expect(query.from).toBe(10);
   expect(query.size).toBe(5);
   expect(queryBuilder.getPage()).toBe(3);
+});
+
+test('When exists text search should return a match with text search', () => {
+  const queryBuilder = new QueryBuilder('myIndex');
+  const query = queryBuilder
+    .setIndex('en')
+    .setPaging(3, 5)
+    .setSearch('testing')
+    .build();
+
+    expect(query.body.query.bool.must.match.name).toBe('testing');
+});
+
+test('When not exists text search should return a match to search all', () => {
+  const queryBuilder = new QueryBuilder('myIndex');
+  const query = queryBuilder
+    .setIndex('en')
+    .setPaging(3, 5)
+    .setSearch('')
+    .build();
+
+    expect(query.body.query.bool.must).toHaveProperty('match_all');
 });
